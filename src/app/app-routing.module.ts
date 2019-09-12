@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    // canActivate: [NegAuthGuard]
+    canActivate: [NegAuthGuard]
   },
   {
     path: 'login',

@@ -35,6 +35,9 @@ import { EditProjectsComponent } from './Components/Projects/edit-projects/edit-
 import { ProjectDetailsComponent } from './Components/Projects/project-details/project-details.component';
 import { ViewProjectsComponent } from './Components/Projects/view-projects/view-projects.component';
 import { LoaderComponent } from './Components/Extras/Loaders/loader/loader.component';
+import * as firebase from 'firebase';
+firebase.initializeApp(firebaseConfig);
+
 
 @NgModule({
   declarations: [

@@ -26,7 +26,9 @@ export class MainHeaderComponent implements OnInit {
   ]
 
 
-  user: any = {};
+  user: any = {
+    name: ""
+  };
   constructor(
     private menuCtrl: MenuController,
     public authService: AuthService
@@ -37,7 +39,7 @@ export class MainHeaderComponent implements OnInit {
   ngOnInit() { }
 
   getUser() {
-    this.authService.getUser(firebase.auth().currentUser.uid).subscribe(snap => {
+    this.authService.getUser().subscribe(snap => {
       this.user = snap.payload.data();
     })
   }

@@ -2,20 +2,41 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from "@angular/fire/firestore";
 import { first } from 'rxjs/operators';
-
+import * as firebase from 'firebase';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  id: string;
+
+  public company: Observable<any>;
+
+
   constructor(
     private fireAuth: AngularFireAuth,
     private db: AngularFirestore,
-  ) { }
+  ) {
+    this.id = firebase.auth().currentUser.uid;
+    // let teComp = this.getCompany().then(res=>{
+    //   return res;
+    // });
+    // console.log(teComp)
+  }
 
-  getUser(id) {
-    return this.db.collection("Users").doc(id).snapshotChanges();
+  getCompany() {
+    return new Promise((resolve, reject) => {
+      this.db.collection("Users").doc(this.id).snapshotChanges().subscribe(snap => {
+        let temp: any = snap.payload.data();
+        resolve(temp.company);
+      })
+    })
+  }
+
+  getUser() {
+    return this.db.collection("Users").doc(this.id).snapshotChanges();
   }
 
 

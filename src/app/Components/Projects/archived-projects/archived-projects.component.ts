@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../Services/Projects/project.service';
 import * as moment from 'moment';
 import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-archived-projects',
@@ -15,6 +16,7 @@ export class ArchivedProjectsComponent implements OnInit {
   constructor(
     public projectService: ProjectService,
     public navCtrl: NavController,
+    public authService: AuthService,
   ) {
     this.getProjects();
   }
@@ -23,16 +25,18 @@ export class ArchivedProjectsComponent implements OnInit {
 
   getProjects() {
     this.showLoader = true;
-    this.projectService.getArchivedProjects().subscribe(snap => {
-      let tempArray = [];
-      snap.forEach(snip => {
-        let temp: any = snip.payload.doc.data();
-        temp.id = snip.payload.doc.id;
-        temp.timestamp = moment(temp.timestamp).fromNow();
-        tempArray.push(temp);
-      })
-      this.projects = tempArray;
-      this.showLoader = false;
+    this.authService.getCompany().then(comp => {
+      this.projectService.getArchivedProjects(comp).subscribe(snap => {
+        let tempArray = [];
+        snap.forEach(snip => {
+          let temp: any = snip.payload.doc.data();
+          temp.id = snip.payload.doc.id;
+          temp.timestamp = moment(temp.timestamp).fromNow();
+          tempArray.push(temp);
+        })
+        this.projects = tempArray;
+        this.showLoader = false;
+      });
     });
   }
   gtDetails(p) {

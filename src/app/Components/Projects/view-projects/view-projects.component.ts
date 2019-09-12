@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ProjectService } from '../../../Services/Projects/project.service';
 import * as moment from 'moment';
+import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-view-projects',
@@ -15,6 +16,7 @@ export class ViewProjectsComponent implements OnInit {
   projectsLoaded: Array<any> = [];
   constructor(
     public projectService: ProjectService,
+    public authService: AuthService,
     public navCtrl: NavController,
   ) {
     this.getProjects();
@@ -24,17 +26,19 @@ export class ViewProjectsComponent implements OnInit {
 
   getProjects() {
     this.showLoader = true;
-    this.projectService.getProjects().subscribe(snap => {
-      let tempArray = [];
-      snap.forEach(snip => {
-        let temp: any = snip.payload.doc.data();
-        temp.id = snip.payload.doc.id;
-        temp.timestamp = moment(temp.timestamp).fromNow();
-        tempArray.push(temp);
-      })
-      this.projects = tempArray;
-      this.projectsLoaded = tempArray;
-      this.showLoader = false;
+    this.authService.getCompany().then(comp => {
+      this.projectService.getProjects(comp).subscribe(snap => {
+        let tempArray = [];
+        snap.forEach(snip => {
+          let temp: any = snip.payload.doc.data();
+          temp.id = snip.payload.doc.id;
+          temp.timestamp = moment(temp.timestamp).fromNow();
+          tempArray.push(temp);
+        })
+        this.projects = tempArray;
+        this.projectsLoaded = tempArray;
+        this.showLoader = false;
+      });
     });
   }
 

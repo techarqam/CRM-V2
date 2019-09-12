@@ -11,9 +11,9 @@ export class ModelsService {
         ])),
         client: new FormControl(""),
         description: new FormControl(""),
-        archived: new FormControl(false),
-        user: new FormControl(""),
-        // user: new FormControl(firebase.auth().currentUser.uid),
+        archived: new FormControl(false, Validators.required),
+        company: new FormControl("", Validators.required),
+        user: new FormControl("", Validators.required),
         timestamp: new FormControl(moment().format())
     });
     client = new FormGroup({
@@ -28,8 +28,8 @@ export class ModelsService {
         mail: new FormControl("", Validators.compose([
             Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         ])),
-        // user: new FormControl(firebase.auth().currentUser.uid),
-        user: new FormControl(""),
+        company: new FormControl("", Validators.required),
+        user: new FormControl("", Validators.required),
         timestamp: new FormControl(moment().format())
     });
     file = new FormGroup({
@@ -40,8 +40,8 @@ export class ModelsService {
         project: new FormControl("", Validators.compose([
             Validators.required,
         ])),
-        // user: new FormControl(firebase.auth().currentUser.uid),
-        user: new FormControl(""),
+        company: new FormControl("", Validators.required),
+        user: new FormControl("", Validators.required),
         timestamp: new FormControl(moment().format())
     });
     task = new FormGroup({
@@ -51,24 +51,22 @@ export class ModelsService {
         description: new FormControl(""),
         client: new FormControl(""),
         status: new FormControl("Pending"),
-        // assignTo: new FormControl(firebase.auth().currentUser.uid),
-        // assignedBy: new FormControl(firebase.auth().currentUser.uid),
-        assignTo: new FormControl(""),
-        assignedBy: new FormControl(""),
+        assignTo: new FormControl("", Validators.required),
+        assignedBy: new FormControl("", Validators.required),
         dueTime: new FormControl(moment().format(), Validators.compose([
             Validators.required,
         ])),
+        company: new FormControl("", Validators.required),
         timestamp: new FormControl(moment().format())
     });
     message = new FormGroup({
         message: new FormControl("", Validators.compose([
             Validators.required,
         ])),
-        reciever: new FormControl("", Validators.compose([
-            Validators.required,
-        ])),
-        sender: new FormControl(""),
-        timestamp: new FormControl(moment().format())
+        reciever: new FormControl("", Validators.required),
+        sender: new FormControl("", Validators.required),
+        company: new FormControl("", Validators.required),
+        timestamp: new FormControl(moment().format(), Validators.required)
     });
 
     invoice = new FormGroup({
@@ -81,8 +79,8 @@ export class ModelsService {
         amount: new FormControl("", Validators.compose([
             Validators.required,
         ])),
-        // generatedBy: new FormControl(firebase.auth().currentUser.uid),
-        generatedBy: new FormControl(""),
+        generatedBy: new FormControl("", Validators.required),
+        company: new FormControl("", Validators.required),
         timestamp: new FormControl(moment().format())
     });
 
@@ -124,7 +122,8 @@ export class ModelsService {
         isAdmin: new FormControl(false, Validators.compose([
             Validators.required,
         ])),
-        addedBy: new FormControl(""),
+        company: new FormControl("", Validators.required),
+        addedBy: new FormControl("", Validators.required),
         timestamp: new FormControl(moment().format(), Validators.compose([
             Validators.required,
         ])),
