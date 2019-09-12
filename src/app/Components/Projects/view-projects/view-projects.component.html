@@ -19,8 +19,18 @@
                     </ion-row>
                 </ion-grid>
 
+                <ion-item>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="isGrid=true">
+                            <ion-icon name="grid"></ion-icon>
+                        </ion-button>
+                        <ion-button (click)="isGrid=false">
+                            <ion-icon name="list"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-item>
 
-                <ion-row>
+                <ion-row *ngIf="isGrid">
                     <!-- Add project -->
                     <ion-col size="12" size-md="4" size-xs="6" routerLink="/add-project">
                         <ion-card class="add-card">
@@ -35,7 +45,6 @@
                             </ion-card-content>
                         </ion-card>
                     </ion-col>
-
                     <!-- Projects List -->
                     <ion-col size="12" size-md="4" size-xs="6" *ngFor="let p of projects" (click)="gtDetails(p)"
                         [hidden]="showLoader">
@@ -48,9 +57,7 @@
                             </ion-card-content>
                         </ion-card>
                     </ion-col>
-
-
-
+                    <!-- No Projects -->
                     <ion-col size="12" size-md="4" size-xs="6" [hidden]="showLoader" *ngIf="!projects.length">
                         <ion-card>
                             <ion-card-content>
@@ -60,13 +67,29 @@
                             </ion-card-content>
                         </ion-card>
                     </ion-col>
-
-
-
                 </ion-row>
+
+                <ion-row *ngIf="!isGrid">
+                    <ion-col size="12">
+                        <ion-list>
+                            <ion-item routerLink="/add-project" style="cursor: pointer">
+                                <ion-button fill="clear" size="large">
+                                    <ion-icon name="add-circle-outline" class="ion-margin-end"></ion-icon>
+                                    Add Project
+                                </ion-button>
+                            </ion-item>
+                            <ion-item *ngFor="let p of projects" (click)="gtDetails(p)" [hidden]="showLoader">
+                                <p class="projHeader">{{p.name}}</p>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+
+
+
             </ion-col>
 
-            <ion-col size="12" size-md="3" class="rightCol" >
+            <ion-col size="12" size-md="3" class="rightCol">
                 <ion-button fill="clear" (click)="gtArchived()" expand="full">
                     <ion-icon name="filing" size="small" class="ion-margin-end"></ion-icon>
                     Archived Projects

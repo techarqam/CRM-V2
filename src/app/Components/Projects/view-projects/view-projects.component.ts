@@ -14,6 +14,7 @@ export class ViewProjectsComponent implements OnInit {
   showLoader: boolean = false;
   projects: Array<any> = [];
   projectsLoaded: Array<any> = [];
+  isGrid: boolean = true;
   constructor(
     public projectService: ProjectService,
     public authService: AuthService,

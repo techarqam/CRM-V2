@@ -34,7 +34,9 @@ export class ProjectDetailsComponent implements OnInit {
       this.project = snap.payload.data();
       if (this.project.archived) { this.project.archivedStatus = "Archived" } else { this.project.archivedStatus = "Not Archived"; }
       this.project.id = snap.payload.id;
-      this.getClient(this.project.client);
+      if (this.project.client.length) {
+        this.getClient(this.project.client);
+      }
     })
   }
 
@@ -131,5 +133,8 @@ export class ProjectDetailsComponent implements OnInit {
     this.clientService.getSingleClient(clientId).subscribe(snap => {
       this.client = snap.payload.data();
     })
+  }
+  editProject() {
+    this.navCtrl.navigateForward(`/edit-project/${this.project.id}`)
   }
 }

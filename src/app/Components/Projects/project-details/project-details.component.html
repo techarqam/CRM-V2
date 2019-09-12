@@ -1,48 +1,47 @@
-<ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/projects"></ion-back-button>
-        </ion-buttons>
-        <ion-buttons slot="end">
-            <ion-button fill="clear" *ngIf="!project.archived" (click)="archive()">
-                <ion-icon name="cloud-download"></ion-icon>
-            </ion-button>
-            <ion-button fill="clear" *ngIf="project.archived" (click)="unarchive()">
-                <ion-icon name="cloud-upload"></ion-icon>
-            </ion-button>
-        </ion-buttons>
+<app-main-header></app-main-header>
 
-        <ion-title>Project Details</ion-title>
-    </ion-toolbar>
-</ion-header>
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-md="9">
 
-    <app-loader *ngIf="showLoader"></app-loader>
-    <ion-card [hidden]="showLoader">
-        <ion-card-header>
-            <ion-card-title>{{project.name}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-            <ion-list lines="none">
-                <ion-item>
-                    <ion-label>Client</ion-label>
-                    <p slot="end">{{client.name}}</p>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Status</ion-label>
-                    <p slot="end">{{project.archivedStatus}}</p>
-                </ion-item>
-            </ion-list>
-        </ion-card-content>
-    </ion-card>
-    <ion-list>
-        <ion-item (click)="gtFiles()">
-            <p slot="start">Files</p>
-            <ion-icon name="arrow-dropright" slot="end"></ion-icon>
-        </ion-item>
-    </ion-list>
-    <ion-button expand="block" fill="clear" color="danger" (click)="deleteProjectConfirm()">
-        <ion-icon class="ion-margin-end" name="trash"></ion-icon>
-        Delete Project
-    </ion-button>
+                <app-loader *ngIf="showLoader"></app-loader>
+                <ion-card [hidden]="showLoader">
+                    <ion-card-header>
+                        <ion-card-title class="pageTitle">
+                            {{project.name}}
+                            <ion-icon name="create" size="small" (click)="editProject()" color="primary"
+                                class="ion-margin-start" style="cursor : pointer;">
+                            </ion-icon>
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p *ngIf="project.client">Client : <span> {{client.name}} </span> </p>
+                        <h2>Files</h2>
+                    </ion-card-content>
+                </ion-card>
+
+            </ion-col>
+
+            <ion-col size="12" size-md="3">
+                <ion-button expand="block" fill="clear" *ngIf="!project.archived" (click)="archive()">
+                    <ion-icon name="cloud-download" class="ion-margin-end"></ion-icon>
+                    Archive Project
+                </ion-button>
+                <ion-button expand="block" fill="clear" *ngIf="project.archived" (click)="unarchive()">
+                    <ion-icon name="cloud-upload" class="ion-margin-end"></ion-icon>
+                    Unarchive Project
+                </ion-button>
+
+                <ion-button expand="block" fill="clear" color="danger" (click)="deleteProjectConfirm()">
+                    <ion-icon class="ion-margin-end" name="trash"></ion-icon>
+                    Delete Project
+                </ion-button>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+
+
 </ion-content>

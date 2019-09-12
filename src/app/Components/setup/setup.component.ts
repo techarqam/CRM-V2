@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import * as moment from 'moment';
 import { ClientsService } from 'src/app/Services/Clients/clients.service';
 import { UserService } from 'src/app/Services/Users/user.service';
+import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-setup',
@@ -31,71 +32,80 @@ export class SetupComponent implements OnInit {
     public projectService: ProjectService,
     public clientService: ClientsService,
     public userService: UserService,
+    public authService: AuthService,
   ) { }
 
   ngOnInit() {
-
     this.slides.lockSwipes(true);
   }
 
 
 
   addProject() {
-    let data = this.modelService.project.value;
-    this.modelService.project.patchValue({
-      archived: false,
-      user: firebase.auth().currentUser.uid,
-      timestamp: moment().format()
-    });
-    if (this.modelService.project.valid) {
-      this.projBtndis = true;
-      this.projectService.addProject(data).then(newProj => {
-        this.modelService.project.reset();
-        this.projBtndis = false;
-        this.gtSecond();
-      })
-    } else {
-      this.commonService.presentToast("Enter a valid name")
-    }
+    this.authService.getCompany().then(comp => {
+      this.modelService.project.patchValue({
+        company: comp,
+        archived: false,
+        user: firebase.auth().currentUser.uid,
+        timestamp: moment().format()
+      });
+      let data = this.modelService.project.value;
+      if (this.modelService.project.valid) {
+        this.projBtndis = true;
+        this.projectService.addProject(data).then(newProj => {
+          this.modelService.project.reset();
+          this.projBtndis = false;
+          this.gtSecond();
+        })
+      } else {
+        this.commonService.presentToast("Enter a valid name")
+      }
+    })
 
   }
 
   addClient() {
-    let data = this.modelService.client.value;
-    this.modelService.client.patchValue({
-      user: firebase.auth().currentUser.uid,
-      timestamp: moment().format()
+    this.authService.getCompany().then(comp => {
+      this.modelService.client.patchValue({
+        company: comp,
+        user: firebase.auth().currentUser.uid,
+        timestamp: moment().format()
+      });
+      let data = this.modelService.client.value;
+      if (this.modelService.client.valid) {
+        this.clientBtndis = true;
+        this.clientService.addClient(data).then(newProj => {
+          this.modelService.client.reset();
+          this.clientBtndis = false;
+          this.gtSecond();
+        })
+      } else {
+        this.commonService.presentToast("Enter a valid name")
+      }
     });
-    if (this.modelService.client.valid) {
-      this.clientBtndis = true;
-      this.clientService.addClient(data).then(newProj => {
-        this.modelService.client.reset();
-        this.clientBtndis = false;
-        this.gtSecond();
-      })
-    } else {
-      this.commonService.presentToast("Enter a valid name")
-    }
 
   }
 
   addUser() {
-    this.modelService.user.patchValue({
-      isAdmin: false,
-      status: "Unverified",
-      addedBy: firebase.auth().currentUser.uid,
-      timestamp: moment().format()
-    });
-    let data = this.modelService.user.value;
-    if (this.modelService.user.valid) {
-      this.userBtndis = true;
-      this.userService.addUser(data)
-      this.modelService.user.reset();
-      this.userBtndis = false;
-      this.gtDashboard();
-    } else {
-      this.commonService.presentToast("Enter a valid email")
-    }
+    this.authService.getCompany().then(comp => {
+      this.modelService.user.patchValue({
+        company: comp,
+        isAdmin: false,
+        status: "Unverified",
+        addedBy: firebase.auth().currentUser.uid,
+        timestamp: moment().format()
+      });
+      let data = this.modelService.user.value;
+      if (this.modelService.user.valid) {
+        this.userBtndis = true;
+        this.userService.addUser(data)
+        this.modelService.user.reset();
+        this.userBtndis = false;
+        this.gtDashboard();
+      } else {
+        this.commonService.presentToast("Enter a valid email")
+      }
+    })
   }
 
 

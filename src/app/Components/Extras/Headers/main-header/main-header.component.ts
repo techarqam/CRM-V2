@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/Services/Auth/auth.service';
-import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-main-header',

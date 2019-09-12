@@ -1,10 +1,47 @@
-<ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/projects"></ion-back-button>
-        </ion-buttons>
-        <ion-title>Edit Project</ion-title>
-    </ion-toolbar>
-</ion-header>
+<app-main-header></app-main-header>
+
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-md="9">
+
+                <app-loader *ngIf="showLoader"></app-loader>
+                <ion-card [hidden]="showLoader">
+                    <ion-card-header>
+                        <ion-card-title class="pageTitle">
+                            {{project.name}}
+                            <ion-icon name="create" size="small" (click)="editProject()" color="primary"
+                                class="ion-margin-start" style="cursor : pointer;">
+                            </ion-icon>
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p *ngIf="project.client">Client : <span> {{client.name}} </span> </p>
+                        <h2>Files</h2>
+                    </ion-card-content>
+                </ion-card>
+
+            </ion-col>
+
+            <ion-col size="12" size-md="3">
+                <ion-button expand="block" fill="clear" *ngIf="!project.archived" (click)="archive()">
+                    <ion-icon name="cloud-download" class="ion-margin-end"></ion-icon>
+                    Archive Project
+                </ion-button>
+                <ion-button expand="block" fill="clear" *ngIf="project.archived" (click)="unarchive()">
+                    <ion-icon name="cloud-upload" class="ion-margin-end"></ion-icon>
+                    Unarchive Project
+                </ion-button>
+
+                <ion-button expand="block" fill="clear" color="danger" (click)="deleteProjectConfirm()">
+                    <ion-icon class="ion-margin-end" name="trash"></ion-icon>
+                    Delete Project
+                </ion-button>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+
+
 </ion-content>

@@ -1,3 +1,4 @@
+ion-item,
 ion-content {
   --ion-background-color: #fafafa;
 }
@@ -9,6 +10,7 @@ ion-card {
   border-top: 5px solid #10dc60;
   background: white !important;
   min-height: 12.5rem;
+  cursor: pointer;
 }
 .add-card {
   border-top: 5px solid #3880ff;
