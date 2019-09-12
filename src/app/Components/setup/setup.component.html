@@ -1,0 +1,81 @@
+<ion-content>
+
+  <ion-slides class="projectSlides" #slider>
+
+
+    <ion-slide class="projectSlides">
+      <form [formGroup]="this.modelService.project">
+        <h2>Get started with your first project.</h2>
+        <br />
+        <br />
+        <ion-item class="containerItem">
+          <ion-input placeholder="Project Name" class="mainInput" formControlName="name" (keyup.enter)="addProject()"
+            type="text">
+          </ion-input>
+        </ion-item>
+        <br />
+        <br />
+        <ion-button (click)="addProject()" [disabled]="projBtndis">Continue</ion-button>
+        <br />
+        <ion-button (click)="gtSecond()" fill="clear">Skip</ion-button>
+      </form>
+    </ion-slide>
+
+
+    <ion-slide class="projectSlides">
+      <form [formGroup]="this.modelService.client">
+        <h2>Add your first Client</h2>
+        <br />
+        <br />
+        <ion-item class="containerItem">
+          <ion-input placeholder="Client Name" class="mainInput" formControlName="name" (keyup.enter)="addClient()"
+            type="text">
+          </ion-input>
+        </ion-item>
+        <br />
+        <ion-item class="containerItem">
+          <ion-input placeholder="Phone Number" class="secondInput" formControlName="phone" (keyup.enter)="addClient()"
+            type="phone">
+          </ion-input>
+        </ion-item>
+        <br />
+        <ion-item class="containerItem">
+          <ion-input placeholder="Email" formControlName="mail" class="secondInput" (keyup.enter)="addClient()"
+            type="email">
+          </ion-input>
+        </ion-item>
+        <br />
+        <br />
+        <ion-button (click)="addClient()" [disabled]="clientBtndis">Continue</ion-button>
+        <br />
+        <ion-button (click)="gtSecond()" fill="clear">Skip</ion-button>
+      </form>
+    </ion-slide>
+
+    <ion-slide class="projectSlides">
+      <form [formGroup]="this.modelService.user">
+        <h2>Invite your colleagues</h2>
+        <br />
+        <br />
+        <ion-item class="containerItem">
+          <ion-input placeholder="Email" class="mainInput" formControlName="email" (keyup.enter)="addUser()"
+            type="email">
+          </ion-input>
+        </ion-item>
+        <br />
+        <br />
+        <ion-button (click)="addUser()" [disabled]="userBtndis">Continue</ion-button>
+        <br />
+        <ion-button (click)="gtDashboard()" fill="clear">Skip</ion-button>
+      </form>
+    </ion-slide>
+
+
+
+
+
+
+
+  </ion-slides>
+
+</ion-content>

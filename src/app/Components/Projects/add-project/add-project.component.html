@@ -1,0 +1,59 @@
+<app-main-header></app-main-header>
+
+
+
+
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-md="4" offset-md="4">
+                <ion-card>
+
+                    <ion-card-header>
+                        <ion-title class="card-header">Create a project</ion-title>
+                    </ion-card-header>
+
+                    <ion-row>
+                        <ion-col size="12" size-md="10" offset-md="1">
+
+
+
+                            <ion-card-content class="ion-padding">
+                                <app-loader *ngIf="showLoader"></app-loader>
+                                <form [formGroup]="this.modelService.project" [hidden]="showLoader">
+
+                                    <ion-item>
+                                        <ion-label position="floating">Project Name</ion-label>
+                                        <ion-input type="text" formControlName="name"></ion-input>
+                                    </ion-item>
+
+                                    <ion-item>
+                                        <ion-label position="floating">Client</ion-label>
+                                        <ion-select formControlName="client">
+                                            <ion-select-option [value]="c.id" *ngFor="let c of clients">
+                                                {{c.name}}
+                                            </ion-select-option>
+                                        </ion-select>
+                                    </ion-item>
+
+                                    <ion-item>
+                                        <ion-label position="floating">Description</ion-label>
+                                        <ion-textarea formControlName="description"></ion-textarea>
+                                    </ion-item>
+
+
+                                    <ion-button (click)="addProject()" class="ion-margin-top" expand="block">Add Project
+                                    </ion-button>
+
+                                </form>
+                            </ion-card-content>
+
+                        </ion-col>
+                    </ion-row>
+
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

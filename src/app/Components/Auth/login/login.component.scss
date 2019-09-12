@@ -1,0 +1,33 @@
+ion-content {
+  // --ion-background-image: url("../../../../assets/imgs/back.png"); /* The image used */
+  --ion-background-color: #3880ff;
+}
+
+ion-item,
+ion-searchbar {
+  --ion-background-color: white;
+}
+
+.head {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: black;
+}
+
+.logo {
+  margin-top: 200px;
+  width: 150px;
+  margin: auto;
+}
+
+ion-card {
+  position: absolute;
+  background: white;
+  padding-top : 20px;
+  top: 20px;
+  width: 100%;
+  height: 500px;
+}

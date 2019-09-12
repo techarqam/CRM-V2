@@ -1,0 +1,93 @@
+<app-main-header></app-main-header>
+<ion-content>
+    <app-loader *ngIf="showLoader"></app-loader>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-md="8" offset-md="1">
+
+                <p class="pageTitle">Projects</p>
+
+                <!-- Search bar -->
+
+                <ion-grid [hidden]="showLoader">
+                    <ion-row>
+                        <ion-col size-md="8" size="12" offset-md="2">
+                            <ion-searchbar [(ngModel)]="searchBar" (ionChange)="getItems(searchBar)"
+                                placeholder="Search by Project's Name" type="text">
+                            </ion-searchbar>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+
+                <ion-row>
+                    <!-- Add project -->
+                    <ion-col size="12" size-md="4" size-xs="6" routerLink="/add-project">
+                        <ion-card class="add-card">
+                            <ion-button fill="clear" class="addBtn" size="large">
+                                <ion-icon name="add-circle-outline"></ion-icon>
+                            </ion-button>
+                            <ion-card-content>
+                                <div class="addProjDetailDiv">
+                                    <p class="addProjHeader">New Project</p>
+                                    <p class="projSubHeader">Add another project</p>
+                                </div>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+
+                    <!-- Projects List -->
+                    <ion-col size="12" size-md="4" size-xs="6" *ngFor="let p of projects" (click)="gtDetails(p)"
+                        [hidden]="showLoader">
+                        <ion-card>
+                            <ion-card-content>
+                                <div class="projDetailDiv">
+                                    <p class="projHeader">{{p.name}}</p>
+                                    <p class="projSubHeader">{{p.timestamp}}</p>
+                                </div>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+
+
+
+                    <ion-col size="12" size-md="4" size-xs="6" [hidden]="showLoader" *ngIf="!projects.length">
+                        <ion-card>
+                            <ion-card-content>
+                                <div class="projDetailDiv">
+                                    <p class="projHeader">No Projects</p>
+                                </div>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+
+
+
+                </ion-row>
+            </ion-col>
+
+            <ion-col size="12" size-md="3" class="rightCol" >
+                <ion-button fill="clear" (click)="gtArchived()" expand="full">
+                    <ion-icon name="filing" size="small" class="ion-margin-end"></ion-icon>
+                    Archived Projects
+                </ion-button>
+
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+
+
+    <!-- <ion-button fill="clear" (click)="gtArchived()" expand="full">
+        <ion-icon name="filing" class="ion-margin-end"></ion-icon>
+        Archived Projects
+    </ion-button>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button routerLink="/add-project">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab> -->
+
+</ion-content>

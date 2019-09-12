@@ -1,0 +1,50 @@
+ion-content {
+  --ion-background-color: #fafafa;
+}
+ion-searchbar {
+  --ion-background-color: white;
+}
+
+ion-card {
+  border-top: 5px solid #10dc60;
+  background: white !important;
+  min-height: 12.5rem;
+}
+.add-card {
+  border-top: 5px solid #3880ff;
+}
+
+.projDetailDiv {
+  position: absolute;
+  top: 7rem !important;
+}
+.addProjDetailDiv {
+  position: absolute;
+  top: 7rem !important;
+}
+.addBtn {
+  margin: 0;
+  position: absolute;
+  top: 3.5rem !important;
+  left: 0rem !important;
+}
+
+.projHeader {
+  font-size: 1.17rem !important;
+  font-weight: 700;
+  line-height: 2rem;
+  color: #242628;
+}
+.projSubHeader {
+  font-size: 0.8125rem !important;
+  // font-weight: 700;
+  line-height: 2rem;
+  color: #7699c2;
+}
+
+.addProjHeader {
+  font-size: 1.17rem !important;
+  font-weight: 700;
+  line-height: 2rem;
+  color: #3880ff;
+}

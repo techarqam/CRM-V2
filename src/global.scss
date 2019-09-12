@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,26 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.rightCol{
+  padding-top: 200px;
+}
+
+
+ion-content {
+  --ion-background-color: #fafafa;
+}
+ion-item,ion-searchbar {
+  --ion-background-color: white;
+}
+
+ion-card {
+  background: white !important;
+}
+
+.pageTitle {
+  font-size: 32px;
+  color: #1b3a57;
+  font-weight: 500;
+  line-height: 40px;
+}
