@@ -22,6 +22,10 @@ export class MainHeaderComponent implements OnInit {
       title: 'Clients',
       url: '/clients',
     },
+    {
+      title: 'Users',
+      url: '/all-users',
+    },
   ]
 
 
@@ -39,6 +43,7 @@ export class MainHeaderComponent implements OnInit {
 
   getUser() {
     this.authService.getUser().subscribe(snap => {
+      console.log(snap.payload.data());
       this.user = snap.payload.data();
     })
   }

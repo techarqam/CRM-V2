@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/clients"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Client Details</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <app-loader *ngIf="showLoader"></app-loader>
+    <ion-card [hidden]="showLoader">
+        <ion-card-header>
+            <ion-card-title>{{client.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list lines="none">
+                <ion-list-header>
+                    <ion-label>Projects</ion-label>
+                </ion-list-header>
+                <ion-item *ngFor="let p of projects" (click)="gtDetails(p)">
+                    <ion-label>{{p.name}}</ion-label>
+                    <!-- <p slot="end">{{client.archivedStatus}}</p> -->
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-button expand="block" fill="clear" [hidden]="showLoader" color="danger" (click)="deleteClientConfirm()">
+        <ion-icon class="ion-margin-end" name="trash"></ion-icon>
+        Delete Client
+    </ion-button>
+</ion-content>

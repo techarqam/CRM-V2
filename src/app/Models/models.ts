@@ -113,6 +113,9 @@ export class ModelsService {
             Validators.required,
             Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         ])),
+        active: new FormControl(true, Validators.compose([
+            Validators.required
+        ])),
         password: new FormControl("", Validators.compose([
             Validators.minLength(6)
         ])),

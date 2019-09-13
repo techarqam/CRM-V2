@@ -36,6 +36,13 @@ import { ProjectDetailsComponent } from './Components/Projects/project-details/p
 import { ViewProjectsComponent } from './Components/Projects/view-projects/view-projects.component';
 import { LoaderComponent } from './Components/Extras/Loaders/loader/loader.component';
 import * as firebase from 'firebase';
+import { AllUsersComponent } from './Components/Users/all-users/all-users.component';
+import { AddUserComponent } from './Components/Users/add-user/add-user.component';
+import { UserDetailsComponent } from './Components/Users/user-details/user-details.component';
+import { AddClientComponent } from './Components/Clients/add-client/add-client.component';
+import { ClientDetailsComponent } from './Components/Clients/client-details/client-details.component';
+import { EditClientsComponent } from './Components/Clients/edit-clients/edit-clients.component';
+import { ViewClientsComponent } from './Components/Clients/view-clients/view-clients.component';
 firebase.initializeApp(firebaseConfig);
 
 
@@ -57,7 +64,15 @@ firebase.initializeApp(firebaseConfig);
     EditProjectsComponent,
     ProjectDetailsComponent,
     ViewProjectsComponent,
-
+    //Users
+    AllUsersComponent,
+    AddUserComponent,
+    UserDetailsComponent,
+    //Clients
+    AddClientComponent,
+    // ClientDetailsComponent,
+    // EditClientsComponent,
+    ViewClientsComponent,
   ],
   entryComponents: [
     MainHeaderComponent,

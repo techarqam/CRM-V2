@@ -9,28 +9,6 @@ import { CommonService } from '../Common/common.service';
 })
 export class HomeService {
 
-  // signUp = new FormGroup({
-  //   adminName: new FormControl("", Validators.compose([
-  //     Validators.required,
-  //     Validators.minLength(6)
-  //   ])),
-  //   companyName: new FormControl("", Validators.compose([
-  //     Validators.required,
-  //     Validators.minLength(4)
-  //   ])),
-  //   email: new FormControl("", Validators.compose([
-  //     Validators.required,
-  //     Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-  //   ])),
-  //   terms: new FormControl(false, Validators.compose([
-  //     Validators.required,
-  //   ])),
-  //   timestamp: new FormControl(moment().format(), Validators.compose([
-  //     Validators.required,
-  //   ])),
-  // });
-
-
 
   constructor(
     private db: AngularFirestore,
@@ -51,6 +29,7 @@ export class HomeService {
       email: data.email,
       password: tempPass,
       status: "Unverified",
+      active: true,
       isAdmin: true,
       addedBy: "",
       timestamp: moment().format()

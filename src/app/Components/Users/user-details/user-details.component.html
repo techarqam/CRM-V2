@@ -1,0 +1,44 @@
+<app-main-header></app-main-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="9">
+
+        <app-loader *ngIf="showLoader"></app-loader>
+        <ion-card [hidden]="showLoader">
+          <ion-card-header>
+            <ion-card-title class="pageTitle">
+              {{user.name}}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- <p *ngIf="project.client">Client : <span> {{client.name}} </span> </p> -->
+            <!-- <h2>Files</h2> -->
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col size="12" size-md="3">
+        <ion-button expand="block" fill="clear" *ngIf="!user.active" (click)="activate()">
+          <ion-icon name="checkmark" class="ion-margin-end"></ion-icon>
+          Activate User
+        </ion-button>
+        <ion-button expand="block" fill="clear" *ngIf="user.active" (click)="deactivate()">
+          <ion-icon name="close" class="ion-margin-end"></ion-icon>
+          Deactivate User
+        </ion-button>
+
+        <!-- <ion-button expand="block" fill="clear" color="danger" (click)="deleteUserConfirm()">
+          <ion-icon class="ion-margin-end" name="trash"></ion-icon>
+          Delete User
+        </ion-button> -->
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
+
+</ion-content>

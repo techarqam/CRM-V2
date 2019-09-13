@@ -19,11 +19,14 @@ export class AuthService {
     private fireAuth: AngularFireAuth,
     private db: AngularFirestore,
   ) {
-    this.id = firebase.auth().currentUser.uid;
-    // let teComp = this.getCompany().then(res=>{
-    //   return res;
-    // });
-    // console.log(teComp)
+
+    firebase.auth().onAuthStateChanged((user: firebase.User) => {
+      if (user) {
+        this.id = user.uid;
+      }
+    })
+
+
   }
 
   getCompany() {

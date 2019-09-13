@@ -1,0 +1,103 @@
+<app-main-header></app-main-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="8" offset-md="1">
+
+        <p class="pageTitle">Users</p>
+
+        <ion-grid [hidden]="showLoader">
+          <ion-row>
+            <ion-col size-md="9" size="12">
+              <ion-searchbar [(ngModel)]="searchBar" (ionChange)="getItems(searchBar)"
+                placeholder="Search by Users's Name" type="text">
+              </ion-searchbar>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <ion-item>
+          <ion-buttons slot="end">
+            <ion-button (click)="isGrid=true">
+              <ion-icon name="grid"></ion-icon>
+            </ion-button>
+            <ion-button (click)="isGrid=false">
+              <ion-icon name="list"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+
+
+        <app-loader *ngIf="showLoader"></app-loader>
+        <p class="nodata" [hidden]="showLoader" *ngIf="!users.length">No Users</p>
+
+        <ion-row *ngIf="isGrid">
+          <!-- Add project -->
+          <ion-col size="12" size-md="4" size-xs="6" routerLink="/add-user">
+            <ion-card class="add-card">
+              <ion-button fill="clear" class="addBtn" size="large">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+              <ion-card-content>
+                <div class="addProjDetailDiv">
+                  <p class="addProjHeader">New User</p>
+                  <p class="projSubHeader">Add another user</p>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <!-- Users List -->
+          <ion-col size="12" size-md="4" size-xs="6" *ngFor="let u of users" (click)="gtUserDetails(u)"
+            [hidden]="showLoader">
+            <ion-card>
+              <ion-card-content>
+                <div class="projDetailDiv">
+                  <p class="projHeader">{{u.name}}</p>
+                  <p class="projSubHeader">{{u.active}}</p>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <!-- No Users -->
+          <ion-col size="12" size-md="4" size-xs="6" [hidden]="showLoader" *ngIf="!users.length">
+            <ion-card>
+              <ion-card-content>
+                <div class="projDetailDiv">
+                  <p class="projHeader">No Users</p>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="!isGrid">
+          <ion-col size="12">
+            <ion-list>
+              <ion-item routerLink="/add-user" style="cursor: pointer">
+                <ion-button fill="clear" size="large">
+                  <ion-icon name="add-circle-outline" class="ion-margin-end"></ion-icon>
+                  Add Project
+                </ion-button>
+              </ion-item>
+              <ion-item *ngFor="let u of users" (click)="gtDetails(p)" [hidden]="showLoader">
+                <p class="projHeader">{{u.name}}</p>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+
+      <!-- <ion-col size="12" size-md="3" class="rightCol">
+        <ion-button fill="clear" routerLink="/add-user" expand="full">
+          <ion-icon name="add" size="small" class="ion-margin-end"></ion-icon>
+          Add Users
+        </ion-button>
+
+      </ion-col> -->
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

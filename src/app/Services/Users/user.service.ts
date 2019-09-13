@@ -4,32 +4,22 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import * as moment from 'moment';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from '../Auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  // signIn = new FormGroup({
-  //   email: new FormControl("", Validators.compose([
-  //     Validators.required,
-  //     Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-  //   ])),
-  //   pass: new FormControl("", Validators.compose([
-  //     Validators.required,
-  //     Validators.minLength(6)
-  //   ])),
-  // });
-
-
 
 
   constructor(
     private db: AngularFirestore,
     private fireAuth: AngularFireAuth,
+    public authService: AuthService,
   ) {
   }
-
+  //Add User
   getUser(id) {
     return this.db.collection("Users").doc(id).snapshotChanges();
   }
@@ -38,7 +28,7 @@ export class UserService {
     let user: any;
     this.db.collection("Users").doc(firebase.auth().currentUser.uid).snapshotChanges().subscribe(snap => {
       user = snap.payload.data();
-      this.fireAuth.auth.createUserWithEmailAndPassword(nUser.email, this.createPassword()).then(res => {
+      this.fireAuth.auth.createUserWithEmailAndPassword(nUser.email, nUser.password).then(res => {
         this.db.collection(`Users`).doc(`${res.user.uid}`).set(nUser).then(() => {
           this.fireAuth.auth.signInWithEmailAndPassword(user.email, user.password);
         });
@@ -48,14 +38,33 @@ export class UserService {
     });
   }
 
-  createPassword() {
-    let length = 16;
-    let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let retVal: string = "";
-    for (var i = 0, n = charset.length; i < length; ++i) {
-      retVal += charset.charAt(Math.floor(Math.random() * n));
-    }
-    return retVal;
+  // Get Users
+  getUsers(company) {
+    return this.db.collection(`Users`, ref => ref.where("company", "==", company)).snapshotChanges();
+  }
+  getSingleUser(userId) {
+    return this.db.collection(`Users`).doc(userId).snapshotChanges();
+  }
+
+  activateUser(userId) {
+    return this.db.collection('Users').doc(userId).update({ active: true });
+  }
+  deactivateUser(userId) {
+    return this.db.collection('Users').doc(userId).update({ active: false });
+  }
+  async delUser(userId) {
+    let oUser: any = {}; let nUser: any = {};
+    this.getSingleUser(userId).subscribe(snap => {
+      nUser = snap.payload.data();
+      this.getSingleUser(firebase.auth().currentUser.uid).subscribe(snapi => {
+        oUser = snapi.payload.data();
+        this.fireAuth.auth.signInWithEmailAndPassword(nUser.email, nUser.password).then(() => {
+          this.fireAuth.auth.currentUser.delete().then(() => {
+            this.fireAuth.auth.signInWithEmailAndPassword(oUser.email, oUser.password);
+          })
+        })
+      })
+    })
   }
 
 }

@@ -1,0 +1,48 @@
+<app-main-header></app-main-header>
+<ion-content>
+    <ion-grid [hidden]="showLoader">
+        <ion-row>
+            <ion-col size-md="9" size="12">
+                <ion-searchbar [(ngModel)]="searchBar" (ionChange)="getItems(searchBar)"
+                    placeholder="Search by Client's Name" type="text">
+                </ion-searchbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <app-loader *ngIf="showLoader"></app-loader>
+    <p class="nodata" [hidden]="showLoader" *ngIf="!clients.length">No Clients</p>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-md="3" *ngFor="let c of clients" (click)="gtDetails(c)" [hidden]="showLoader">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>{{c.name}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p class="timestamp">{{c.timestamp}}</p>
+                    </ion-card-content>
+                    <ion-footer>
+                        <div class="ion-float-end">
+                            <!-- <ion-button (click)="whatsappClient(c);$event.stopPropagation()">
+                                <ion-icon name="logo-whatsapp" class="ion-margin-end"></ion-icon>
+                                Whatsapp
+                            </ion-button> -->
+                            <ion-button (click)="callClient(c);$event.stopPropagation()">
+                                <ion-icon name="call" class="ion-margin-end"></ion-icon>
+                                Call
+                            </ion-button>
+                        </div>
+                    </ion-footer>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button routerLink="/add-client">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+</ion-content>

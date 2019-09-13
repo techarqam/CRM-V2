@@ -13,6 +13,13 @@ import { ArchivedProjectsComponent } from './Components/Projects/archived-projec
 import { EditProjectsComponent } from './Components/Projects/edit-projects/edit-projects.component';
 import { ProjectDetailsComponent } from './Components/Projects/project-details/project-details.component';
 import { ViewProjectsComponent } from './Components/Projects/view-projects/view-projects.component';
+import { AllUsersComponent } from './Components/Users/all-users/all-users.component';
+import { AddUserComponent } from './Components/Users/add-user/add-user.component';
+import { UserDetailsComponent } from './Components/Users/user-details/user-details.component';
+import { ViewClientsComponent } from './Components/Clients/view-clients/view-clients.component';
+import { AddClientComponent } from './Components/Clients/add-client/add-client.component';
+import { EditClientsComponent } from './Components/Clients/edit-clients/edit-clients.component';
+import { ClientDetailsComponent } from './Components/Clients/client-details/client-details.component';
 
 const routes: Routes = [
   {
@@ -75,6 +82,44 @@ const routes: Routes = [
     component: ArchivedProjectsComponent,
     canActivate: [AuthGuard]
   },
+  //Users
+  {
+    path: 'all-users',
+    component: AllUsersComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-user',
+    component: AddUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'user/:id',
+    component: UserDetailsComponent,
+    canActivate: [AuthGuard]
+  },
+  //Clients
+  {
+    path: 'clients',
+    component: ViewClientsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-client',
+    component: AddClientComponent,
+    canActivate: [AuthGuard]
+  },
+  // {
+  //   path: 'edit-client',
+  //   component: EditClientsComponent,
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'client-details/:id',
+  //   component: ClientDetailsComponent,
+  //   canActivate: [AuthGuard]
+  // },
+
 
 ];
 

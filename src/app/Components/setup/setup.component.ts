@@ -91,6 +91,7 @@ export class SetupComponent implements OnInit {
       this.modelService.user.patchValue({
         company: comp,
         isAdmin: false,
+        active: true,
         status: "Unverified",
         addedBy: firebase.auth().currentUser.uid,
         timestamp: moment().format()
