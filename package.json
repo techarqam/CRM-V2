@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "nebula": "node nebula/nebula.js ${@:1}"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +28,7 @@
     "angularfire2": "^5.2.1",
     "core-js": "^2.5.4",
     "firebase": "^6.6.0",
+    "mkdirp": "^0.5.1",
     "moment": "^2.24.0",
     "node": "^12.10.0",
     "npm": "^6.11.3",
