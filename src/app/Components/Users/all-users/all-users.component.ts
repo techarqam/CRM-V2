@@ -32,9 +32,9 @@ export class AllUsersComponent implements OnInit {
         snap.forEach(snip => {
           let temp: any = snip.payload.doc.data();
           temp.id = snip.payload.doc.id;
+          if (temp.active) { temp.activeStatus = "Active" } else { temp.activeStatus = "Disabled" }
           tempArray.push(temp);
         })
-        console.log(tempArray);
         this.users = tempArray;
         this.usersLoaded = tempArray;
         this.showLoader = false;

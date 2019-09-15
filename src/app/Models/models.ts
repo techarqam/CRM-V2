@@ -2,28 +2,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import * as firebase from 'firebase';
 export class ModelsService {
-     
-        /*Fan*/ 
-        fan = new FormGroup({
-            name: new FormControl("", Validators.compose([
-                Validators.required,
-                Validators.minLength(6)
-            ])),
-            timestamp: new FormControl(moment().format(),Validators.required)
-        });
-    
-     
-        /*Red*/ 
-        red = new FormGroup({
-            name: new FormControl("", Validators.compose([
-                Validators.required,
-                Validators.minLength(6)
-            ])),
-            timestamp: new FormControl(moment().format(),Validators.required)
-        });
-    
-
-
     project = new FormGroup({
         name: new FormControl("", Validators.compose([
             Validators.required,
