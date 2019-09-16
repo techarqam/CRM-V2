@@ -5,7 +5,7 @@
         <ion-row>
             <ion-col size="12" size-md="8" offset-md="1">
 
-                <p class="pageTitle" >Archived Projects</p>
+                <p class="pageTitle">Archived Projects</p>
 
 
                 <!-- Search bar -->
@@ -20,9 +20,22 @@
                 </ion-grid>
 
 
-                <ion-row>
+                <ion-item>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="isGrid=true">
+                            <ion-icon name="grid"></ion-icon>
+                        </ion-button>
+                        <ion-button (click)="isGrid=false">
+                            <ion-icon name="list"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-item>
+
+
+
+                <ion-row *ngIf="isGrid">
                     <!-- Projects List -->
-                    <ion-col size="12" size-md="4" size-xs="6" *ngFor="let p of projects" (click)="gtDetails(p)"
+                    <ion-col size="12" size-md="4"  *ngFor="let p of projects" (click)="gtDetails(p)"
                         [hidden]="showLoader">
                         <ion-card>
                             <ion-card-content>
@@ -33,10 +46,8 @@
                             </ion-card-content>
                         </ion-card>
                     </ion-col>
-
-
-
-                    <ion-col size="12" size-md="4" size-xs="6" [hidden]="showLoader" *ngIf="!projects.length">
+                    <!-- No Projects -->
+                    <ion-col size="12" size-md="4"  [hidden]="showLoader" *ngIf="!projects.length">
                         <ion-card>
                             <ion-card-content>
                                 <div class="projDetailDiv">
@@ -44,6 +55,23 @@
                                 </div>
                             </ion-card-content>
                         </ion-card>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="!isGrid">
+                    <ion-col size="12">
+                        <ion-list>
+                            <ion-item *ngFor="let p of projects" (click)="gtDetails(p)" [hidden]="showLoader">
+                                <p slot="start" class="projHeader">{{p.name}}</p>
+                                <ion-buttons slot="end">
+                                    <ion-button fill="clear" color="primary" (click)="unarchive
+                                        (p);$event.stopPropagation()">
+                                        <ion-icon name="cloud-upload"></ion-icon>
+                                    </ion-button>
+                                </ion-buttons>
+
+                            </ion-item>
+                        </ion-list>
                     </ion-col>
                 </ion-row>
             </ion-col>

@@ -53,15 +53,17 @@ export class AddProjectComponent implements OnInit {
   }
 
   getClients() {
-    this.clientService.getClients().subscribe(snap => {
-      let tempArray = [];
-      snap.forEach(snip => {
-        let temp: any = snip.payload.doc.data();
-        temp.id = snip.payload.doc.id;
-        temp.timestamp = moment(temp.timestamp).fromNow();
-        tempArray.push(temp);
-      })
-      this.clients = tempArray;
+    this.authService.getCompany().then(comp => {
+      this.clientService.getClients(comp).subscribe(snap => {
+        let tempArray = [];
+        snap.forEach(snip => {
+          let temp: any = snip.payload.doc.data();
+          temp.id = snip.payload.doc.id;
+          temp.timestamp = moment(temp.timestamp).fromNow();
+          tempArray.push(temp);
+        })
+        this.clients = tempArray;
+      });
     });
   }
 }

@@ -26,8 +26,8 @@ export class ProjectService {
   getSingleProject(projectId) {
     return this.dbRef.doc(projectId).snapshotChanges();
   }
-  updateProjects(project, projectId) {
-    return this.dbRef.doc(projectId).update(project);
+  updateProjects(project) {
+    return this.dbRef.doc(project.id).update(project);
   }
   delProjects(projectId) {
     return this.dbRef.doc(projectId).delete();

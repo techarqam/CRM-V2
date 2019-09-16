@@ -13,11 +13,9 @@ import { firebaseConfig } from './firebaseConfig';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './Components/home/home.component';
 import { HomeService } from './Services/Home/home.service';
 import { PrivacyPolicyComponent } from './Components/Extras/privacy-policy/privacy-policy.component';
 import { TermsAndConditionsComponent } from './Components/Extras/terms-and-conditions/terms-and-conditions.component';
-import { SetupComponent } from './Components/setup/setup.component';
 import { CommonService } from './Services/Common/common.service';
 import { ModelsService } from './Models/models';
 import { AuthGuard } from './Guards/Auth/auth.guard';
@@ -43,12 +41,30 @@ import { AddClientComponent } from './Components/Clients/add-client/add-client.c
 import { ClientDetailsComponent } from './Components/Clients/client-details/client-details.component';
 import { EditClientsComponent } from './Components/Clients/edit-clients/edit-clients.component';
 import { ViewClientsComponent } from './Components/Clients/view-clients/view-clients.component';
+import { SetupComponent } from './Components/Extras/setup/setup.component';
+import { HomeComponent } from './Components/Extras/home/home.component';
 firebase.initializeApp(firebaseConfig);
 
 
+import { AddEmailComponent } from './Components/Email/add-email/add-email.component';
+import { EditEmailComponent } from './Components/Email/edit-email/edit-email.component';
+import { DetailsEmailComponent } from './Components/Email/details-email/details-email.component';
+import { ViewEmailComponent } from './Components/Email/view-email/view-email.component';
+import { ChatComponent } from './Components/Messaging/chat/chat.component';
+import { ChatBoxComponent } from './Components/Messaging/chat-box/chat-box.component';
+import { ChatUsersComponent } from './Components/Messaging/chat-users/chat-users.component';
+import { MessagingService } from './Services/Messaging/messaging.service';
+
 @NgModule({
+
   declarations: [
     AppComponent,
+    /*Email*/
+    AddEmailComponent,
+    EditEmailComponent,
+    DetailsEmailComponent,
+    ViewEmailComponent,
+
     HomeComponent,
     SetupComponent,
     PrivacyPolicyComponent,
@@ -70,13 +86,19 @@ firebase.initializeApp(firebaseConfig);
     UserDetailsComponent,
     //Clients
     AddClientComponent,
-    // ClientDetailsComponent,
-    // EditClientsComponent,
+    ClientDetailsComponent,
+    EditClientsComponent,
     ViewClientsComponent,
+    //Messaging
+    ChatComponent,
+    ChatBoxComponent,
+    ChatUsersComponent,
   ],
   entryComponents: [
     MainHeaderComponent,
     LoaderComponent,
+    ChatBoxComponent,
+    ChatUsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +123,7 @@ firebase.initializeApp(firebaseConfig);
     ClientsService,
     UserService,
     AuthService,
+    MessagingService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

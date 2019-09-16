@@ -3,6 +3,7 @@ import { ProjectService } from '../../../Services/Projects/project.service';
 import { NavController } from '@ionic/angular';
 import { ClientsService } from '../../../Services/Clients/clients.service';
 import * as moment from 'moment';
+import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-view-clients',
@@ -14,27 +15,32 @@ export class ViewClientsComponent implements OnInit {
   showLoader: boolean = false;
   clients: Array<any> = [];
   clientsLoaded: Array<any> = [];
+  isGrid: boolean = true;
   constructor(
     public clientService: ClientsService,
+    public authService: AuthService,
     public navCtrl: NavController,
   ) {
-    // this.getClients();
+    this.getClients();
   }
 
   ngOnInit() { }
   getClients() {
     this.showLoader = true;
-    this.clientService.getClients().subscribe(snap => {
-      let tempArray = [];
-      snap.forEach(snip => {
-        let temp: any = snip.payload.doc.data();
-        temp.id = snip.payload.doc.id;
-        temp.timestamp = moment(temp.timestamp).fromNow();
-        tempArray.push(temp);
-      })
-      this.clients = tempArray;
-      this.clientsLoaded = tempArray;
-      this.showLoader = false;
+    this.authService.getCompany().then(comp => {
+      this.clientService.getClients(comp).subscribe(snap => {
+        let tempArray = [];
+        snap.forEach(snip => {
+          let temp: any = snip.payload.doc.data();
+          temp.id = snip.payload.doc.id;
+          temp.timestamp = moment(temp.timestamp).fromNow();
+          tempArray.push(temp);
+        })
+        console.log(tempArray);
+        this.clients = tempArray;
+        this.clientsLoaded = tempArray;
+        this.showLoader = false;
+      });
     });
   }
 

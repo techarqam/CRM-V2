@@ -1,47 +1,67 @@
 <app-main-header></app-main-header>
 
+
+
+
+
 <ion-content>
     <ion-grid>
         <ion-row>
-            <ion-col size="12" size-md="9">
+            <ion-col size="12" size-md="4" offset-md="4">
+                <ion-card>
 
-                <app-loader *ngIf="showLoader"></app-loader>
-                <ion-card [hidden]="showLoader">
                     <ion-card-header>
-                        <ion-card-title class="pageTitle">
-                            {{project.name}}
-                            <ion-icon name="create" size="small" (click)="editProject()" color="primary"
-                                class="ion-margin-start" style="cursor : pointer;">
-                            </ion-icon>
-                        </ion-card-title>
+                        <ion-title class="card-header">Update project</ion-title>
                     </ion-card-header>
-                    <ion-card-content>
-                        <p *ngIf="project.client">Client : <span> {{client.name}} </span> </p>
-                        <h2>Files</h2>
-                    </ion-card-content>
+
+                    <ion-row>
+                        <ion-col size="12" size-md="10" offset-md="1">
+
+
+
+                            <ion-card-content class="ion-padding">
+                                <app-loader *ngIf="showLoader"></app-loader>
+                                <form [formGroup]="this.modelService.project" [hidden]="showLoader">
+
+                                    <ion-item>
+                                        <ion-label position="floating">Project Name</ion-label>
+                                        <ion-input type="text" formControlName="name"></ion-input>
+                                    </ion-item>
+
+                                    <!-- <ion-item>
+                                        <ion-label position="floating">Client</ion-label>
+                                        <ion-select formControlName="client">
+                                            <ion-select-option [value]="c.id" *ngFor="let c of clients">
+                                                {{c.name}}
+                                            </ion-select-option>
+                                        </ion-select>
+                                    </ion-item> -->
+
+                                    <ion-item>
+                                        <ion-label position="floating">Description</ion-label>
+                                        <ion-textarea formControlName="description"></ion-textarea>
+                                    </ion-item>
+
+
+
+                                </form>
+                            </ion-card-content>
+
+                        </ion-col>
+                    </ion-row>
+                    <ion-item lines="none" class="ion-margin-top">
+                        <div slot="end">
+                            <ion-button (click)="cancel()" color="light">
+                                Cancel
+                            </ion-button>
+                            <ion-button (click)="updateProject()">
+                                Update Project
+                            </ion-button>
+                        </div>
+                    </ion-item>
+
                 </ion-card>
-
             </ion-col>
-
-            <ion-col size="12" size-md="3">
-                <ion-button expand="block" fill="clear" *ngIf="!project.archived" (click)="archive()">
-                    <ion-icon name="cloud-download" class="ion-margin-end"></ion-icon>
-                    Archive Project
-                </ion-button>
-                <ion-button expand="block" fill="clear" *ngIf="project.archived" (click)="unarchive()">
-                    <ion-icon name="cloud-upload" class="ion-margin-end"></ion-icon>
-                    Unarchive Project
-                </ion-button>
-
-                <ion-button expand="block" fill="clear" color="danger" (click)="deleteProjectConfirm()">
-                    <ion-icon class="ion-margin-end" name="trash"></ion-icon>
-                    Delete Project
-                </ion-button>
-            </ion-col>
-
         </ion-row>
     </ion-grid>
-
-
-
 </ion-content>

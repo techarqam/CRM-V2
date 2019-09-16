@@ -5,6 +5,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { CommonService } from '../../../Services/Common/common.service';
 import { ProjectService } from '../../../Services/Projects/project.service';
 import * as moment from 'moment';
+import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-client-details',
@@ -19,6 +20,7 @@ export class ClientDetailsComponent implements OnInit {
   constructor(
     public clientService: ClientsService,
     private router: ActivatedRoute,
+    public authService: AuthService,
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public projectService: ProjectService,
@@ -81,20 +83,26 @@ export class ClientDetailsComponent implements OnInit {
   }
   getProjects(clientId) {
     this.showLoader = true;
-    this.clientService.getClientProjects(clientId).subscribe(snap => {
-      let tempArray = [];
-      snap.forEach(snip => {
-        let temp: any = snip.payload.doc.data();
-        temp.id = snip.payload.doc.id;
-        temp.timestamp = moment(temp.timestamp).fromNow();
-        tempArray.push(temp);
-      })
-      this.projects = tempArray;
-      this.showLoader = false;
+    this.authService.getCompany().then(comp => {
+      this.clientService.getClientProjects(clientId, comp).subscribe(snap => {
+        let tempArray = [];
+        snap.forEach(snip => {
+          let temp: any = snip.payload.doc.data();
+          temp.id = snip.payload.doc.id;
+          temp.timestamp = moment(temp.timestamp).fromNow();
+          tempArray.push(temp);
+        })
+        this.projects = tempArray;
+        this.showLoader = false;
+      });
     });
   }
   gtDetails(p) {
     this.navCtrl.navigateRoot(`/project-details/${p.id}`);
+  }
+
+  editClient() {
+    this.navCtrl.navigateForward(`/edit-client/${this.client.id}`)
   }
 
 }

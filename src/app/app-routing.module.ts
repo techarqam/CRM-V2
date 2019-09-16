@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './Components/home/home.component';
 import { PrivacyPolicyComponent } from './Components/Extras/privacy-policy/privacy-policy.component';
 import { TermsAndConditionsComponent } from './Components/Extras/terms-and-conditions/terms-and-conditions.component';
-import { SetupComponent } from './Components/setup/setup.component';
 import { NegAuthGuard } from './Guards/Auth/neg-auth.guard';
 import { AuthGuard } from './Guards/Auth/auth.guard';
 import { DashboardComponent } from './Components/MainComponents/dashboard/dashboard.component';
@@ -20,8 +18,40 @@ import { ViewClientsComponent } from './Components/Clients/view-clients/view-cli
 import { AddClientComponent } from './Components/Clients/add-client/add-client.component';
 import { EditClientsComponent } from './Components/Clients/edit-clients/edit-clients.component';
 import { ClientDetailsComponent } from './Components/Clients/client-details/client-details.component';
+import { HomeComponent } from './Components/Extras/home/home.component';
+import { SetupComponent } from './Components/Extras/setup/setup.component';
 
+
+/*Email*/
+import { AddEmailComponent } from './Components/Email/add-email/add-email.component';
+import { EditEmailComponent } from './Components/Email/edit-email/edit-email.component';
+import { DetailsEmailComponent } from './Components/Email/details-email/details-email.component';
+import { ViewEmailComponent } from './Components/Email/view-email/view-email.component';
+import { ChatComponent } from './Components/Messaging/chat/chat.component';
 const routes: Routes = [
+
+  /*Module Email*/
+  {
+    path: 'view-email',
+    component: ViewEmailComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-email',
+    component: AddEmailComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-email/:id',
+    component: EditEmailComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'email-details/:id',
+    component: DetailsEmailComponent,
+    canActivate: [AuthGuard]
+  },
+
   {
     path: '',
     redirectTo: 'home',
@@ -109,17 +139,22 @@ const routes: Routes = [
     component: AddClientComponent,
     canActivate: [AuthGuard]
   },
-  // {
-  //   path: 'edit-client',
-  //   component: EditClientsComponent,
-  //   canActivate: [AuthGuard]
-  // },
-  // {
-  //   path: 'client-details/:id',
-  //   component: ClientDetailsComponent,
-  //   canActivate: [AuthGuard]
-  // },
-
+  {
+    path: 'edit-client/:id',
+    component: EditClientsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'client-details/:id',
+    component: ClientDetailsComponent,
+    canActivate: [AuthGuard]
+  },
+  //Messaging
+  {
+    path: 'chat',
+    component: ChatComponent,
+    canActivate: [AuthGuard]
+  },
 
 ];
 

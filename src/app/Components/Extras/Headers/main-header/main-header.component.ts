@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
@@ -34,7 +34,8 @@ export class MainHeaderComponent implements OnInit {
   };
   constructor(
     private menuCtrl: MenuController,
-    public authService: AuthService
+    public authService: AuthService,
+    public navCtrl: NavController,
   ) {
     this.getUser();
   }
@@ -43,7 +44,6 @@ export class MainHeaderComponent implements OnInit {
 
   getUser() {
     this.authService.getUser().subscribe(snap => {
-      console.log(snap.payload.data());
       this.user = snap.payload.data();
     })
   }
@@ -59,6 +59,9 @@ export class MainHeaderComponent implements OnInit {
   openProfile() {
     this.menuCtrl.enable(true, 'profile');
     this.menuCtrl.open('profile');
+  }
+  gtChat() {
+    this.navCtrl.navigateRoot("/chat");
   }
 }
 

@@ -1,48 +1,117 @@
 <app-main-header></app-main-header>
 <ion-content>
-    <ion-grid [hidden]="showLoader">
-        <ion-row>
-            <ion-col size-md="9" size="12">
-                <ion-searchbar [(ngModel)]="searchBar" (ionChange)="getItems(searchBar)"
-                    placeholder="Search by Client's Name" type="text">
-                </ion-searchbar>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
 
     <app-loader *ngIf="showLoader"></app-loader>
-    <p class="nodata" [hidden]="showLoader" *ngIf="!clients.length">No Clients</p>
     <ion-grid>
         <ion-row>
-            <ion-col size="12" size-md="3" *ngFor="let c of clients" (click)="gtDetails(c)" [hidden]="showLoader">
-                <ion-card>
-                    <ion-card-header>
-                        <ion-card-title>{{c.name}}</ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-                        <p class="timestamp">{{c.timestamp}}</p>
-                    </ion-card-content>
-                    <ion-footer>
-                        <div class="ion-float-end">
-                            <!-- <ion-button (click)="whatsappClient(c);$event.stopPropagation()">
-                                <ion-icon name="logo-whatsapp" class="ion-margin-end"></ion-icon>
-                                Whatsapp
-                            </ion-button> -->
-                            <ion-button (click)="callClient(c);$event.stopPropagation()">
-                                <ion-icon name="call" class="ion-margin-end"></ion-icon>
-                                Call
+            <ion-col size="12" size-md="8" offset-md="1">
+
+                <p class="pageTitle">Clients</p>
+
+                <!-- Search bar -->
+
+
+                <ion-grid [hidden]="showLoader">
+                    <ion-row>
+                        <ion-col size-md="9" size="12">
+                            <ion-searchbar [(ngModel)]="searchBar" (ionChange)="getItems(searchBar)"
+                                placeholder="Search by Client's Name" type="text">
+                            </ion-searchbar>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+
+                <ion-item>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="isGrid=true">
+                            <ion-icon name="grid"></ion-icon>
+                        </ion-button>
+                        <ion-button (click)="isGrid=false">
+                            <ion-icon name="list"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-item>
+
+
+
+
+
+                <ion-row *ngIf="isGrid">
+                    <!-- Add Client -->
+                    <ion-col size="12" size-md="4"  routerLink="/add-client">
+                        <ion-card class="add-card">
+                            <ion-button fill="clear" class="addBtn" size="large">
+                                <ion-icon name="add-circle-outline"></ion-icon>
                             </ion-button>
-                        </div>
-                    </ion-footer>
-                </ion-card>
+                            <ion-card-content>
+                                <div class="addProjDetailDiv">
+                                    <p class="addProjHeader">New Client</p>
+                                    <p class="projSubHeader">Add another client</p>
+                                </div>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                    <!-- Clients List -->
+                    <ion-col size="12" size-md="4"  *ngFor="let c of clients" (click)="gtDetails(c)"
+                        [hidden]="showLoader">
+                        <ion-card>
+                            <ion-card-content>
+                                <div class="projDetailDiv">
+                                    <p class="projHeader">{{c.name}}</p>
+                                    <p class="projSubHeader">{{c.timestamp}}</p>
+                                </div>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                    <!-- No Clients -->
+                    <ion-col size="12" size-md="4"  [hidden]="showLoader" *ngIf="!clients.length">
+                        <ion-card>
+                            <ion-card-content>
+                                <div class="projDetailDiv">
+                                    <p class="projHeader">No Clients</p>
+                                </div>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="!isGrid">
+                    <ion-col size="12">
+                        <ion-list>
+                            <ion-item routerLink="/add-client" style="cursor: pointer">
+                                <ion-button fill="clear" size="large">
+                                    <ion-icon name="add-circle-outline" class="ion-margin-end"></ion-icon>
+                                    Add Client
+                                </ion-button>
+                            </ion-item>
+                            <ion-item *ngFor="let c of clients" (click)="gtDetails(c)" [hidden]="showLoader">
+                                <p slot="start" class="projHeader">{{c.name}}</p>
+                                <ion-buttons slot="end">
+                                    <ion-button fill="clear" color="primary" *ngIf="c.phone.length"
+                                        (click)="callClient(c);$event.stopPropagation()">
+                                        <ion-icon name="call"></ion-icon>
+                                    </ion-button>
+                                </ion-buttons>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+
+
+
             </ion-col>
+
+            <ion-col size="12" size-md="3" class="rightCol">
+
+
+            </ion-col>
+
         </ion-row>
     </ion-grid>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button routerLink="/add-client">
-            <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+
+
+
 
 </ion-content>

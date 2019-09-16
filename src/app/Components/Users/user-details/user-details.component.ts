@@ -3,6 +3,7 @@ import { UserService } from 'src/app/Services/Users/user.service';
 import { CommonService } from 'src/app/Services/Common/common.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-user-details',
@@ -11,21 +12,30 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserDetailsComponent implements OnInit {
   user: any = {};
+  cUser: any = {};
 
   constructor(
     public alertCtrl: AlertController,
     private router: ActivatedRoute,
     public navCtrl: NavController,
+    public authService: AuthService,
     public commonService: CommonService,
     public userService: UserService,
   ) {
     this.router.params.subscribe(params => {
+      this.getCurrentUser();
       this.getUser(params['id']);
     });
 
   }
 
   ngOnInit() { }
+
+  getCurrentUser() {
+    this.authService.getUser().subscribe(snap => {
+      this.cUser = snap.payload.data();
+    })
+  }
 
   getUser(userId) {
     this.userService.getSingleUser(userId).subscribe(snap => {
@@ -49,7 +59,9 @@ export class UserDetailsComponent implements OnInit {
           text: 'Activate',
           handler: data => {
             this.userService.activateUser(this.user.id).then(() => {
-              this.navCtrl.navigateRoot('/all-users');
+              this.navCtrl.navigateRoot('/all-users').then(() => {
+                this.commonService.presentToast(this.user.name + " is now activated")
+              })
             })
           }
         }
@@ -72,7 +84,9 @@ export class UserDetailsComponent implements OnInit {
           text: 'Deactivate',
           handler: data => {
             this.userService.deactivateUser(this.user.id).then(() => {
-              this.navCtrl.navigateRoot('/all-users');
+              this.navCtrl.navigateRoot('/all-users').then(() => {
+                this.commonService.presentToast(this.user.name + " is now deactivated")
+              })
             })
           }
         }

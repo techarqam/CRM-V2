@@ -32,7 +32,7 @@
 
                 <ion-row *ngIf="isGrid">
                     <!-- Add project -->
-                    <ion-col size="12" size-md="4" size-xs="6" routerLink="/add-project">
+                    <ion-col size="12" size-md="4"  routerLink="/add-project">
                         <ion-card class="add-card">
                             <ion-button fill="clear" class="addBtn" size="large">
                                 <ion-icon name="add-circle-outline"></ion-icon>
@@ -46,7 +46,7 @@
                         </ion-card>
                     </ion-col>
                     <!-- Projects List -->
-                    <ion-col size="12" size-md="4" size-xs="6" *ngFor="let p of projects" (click)="gtDetails(p)"
+                    <ion-col size="12" size-md="4"  *ngFor="let p of projects" (click)="gtDetails(p)"
                         [hidden]="showLoader">
                         <ion-card>
                             <ion-card-content>
@@ -58,7 +58,7 @@
                         </ion-card>
                     </ion-col>
                     <!-- No Projects -->
-                    <ion-col size="12" size-md="4" size-xs="6" [hidden]="showLoader" *ngIf="!projects.length">
+                    <ion-col size="12" size-md="4"  [hidden]="showLoader" *ngIf="!projects.length">
                         <ion-card>
                             <ion-card-content>
                                 <div class="projDetailDiv">
@@ -79,7 +79,14 @@
                                 </ion-button>
                             </ion-item>
                             <ion-item *ngFor="let p of projects" (click)="gtDetails(p)" [hidden]="showLoader">
-                                <p class="projHeader">{{p.name}}</p>
+                                <p slot="start" class="projHeader">{{p.name}}</p>
+                                <ion-buttons slot="end">
+                                    <ion-button fill="clear" color="primary"
+                                        (click)="archive(p);$event.stopPropagation()">
+                                        <ion-icon name="cloud-download"></ion-icon>
+                                    </ion-button>
+                                </ion-buttons>
+
                             </ion-item>
                         </ion-list>
                     </ion-col>

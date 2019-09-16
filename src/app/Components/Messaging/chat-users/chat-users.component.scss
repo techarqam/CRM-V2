@@ -1,0 +1,25 @@
+ion-card {
+  height: 80px;
+  cursor: pointer;
+}
+ion-searchbar {
+  --ion-background-color: #fafafa;
+}
+
+.selCard {
+  background: #1b3a57 !important;
+  color: white !important;
+}
+.avat {
+  width: 80%;
+  height: auto;
+  margin: auto;
+}
+.name {
+  color: #1b3a57;
+  font-weight: 700;
+}
+.selName {
+  color: white;
+  font-weight: 700;
+}

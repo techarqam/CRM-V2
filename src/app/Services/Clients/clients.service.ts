@@ -6,28 +6,26 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class ClientsService {
 
-  dbRef = this.db.collection(`Clients`, ref => ref.orderBy('timestamp', 'desc'));
-
   constructor(
     public db: AngularFirestore,
   ) { }
   addClient(client) {
-    return this.dbRef.add(client);
+    return this.db.collection(`Clients`, ref => ref.orderBy('timestamp', 'desc')).add(client);
   }
-  getClients() {
-    return this.dbRef.snapshotChanges();
+  getClients(comp) {
+    return this.db.collection(`Clients`, ref => ref.orderBy('timestamp', 'desc').where("company", "==", comp)).snapshotChanges();
   }
   getSingleClient(clientId) {
-    return this.dbRef.doc(clientId).snapshotChanges();
+    return this.db.collection(`Clients`, ref => ref.orderBy('timestamp', 'desc')).doc(clientId).snapshotChanges();
   }
-  updateClients(client, clientId) {
-    return this.dbRef.doc(clientId).update(client);
+  updateClients(client) {
+    return this.db.collection(`Clients`, ref => ref.orderBy('timestamp', 'desc')).doc(client.id).update(client);
   }
   delClients(clientId) {
-    return this.dbRef.doc(clientId).delete();
+    return this.db.collection(`Clients`, ref => ref.orderBy('timestamp', 'desc')).doc(clientId).delete();
   }
-  getClientProjects(clientId) {
-    return this.db.collection(`Projects`, ref => ref.where("client", "==", clientId).orderBy('timestamp', 'desc')).snapshotChanges();
+  getClientProjects(clientId,comp) {
+    return this.db.collection(`Projects`, ref => ref.where("client", "==", clientId).where("company", "==", comp).orderBy('timestamp', 'desc')).snapshotChanges();
   }
 
 }

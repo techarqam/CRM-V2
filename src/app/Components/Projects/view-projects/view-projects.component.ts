@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { ProjectService } from '../../../Services/Projects/project.service';
 import * as moment from 'moment';
 import { AuthService } from 'src/app/Services/Auth/auth.service';
@@ -17,6 +17,7 @@ export class ViewProjectsComponent implements OnInit {
   isGrid: boolean = true;
   constructor(
     public projectService: ProjectService,
+    public alertCtrl: AlertController,
     public authService: AuthService,
     public navCtrl: NavController,
   ) {
@@ -68,4 +69,29 @@ export class ViewProjectsComponent implements OnInit {
   gtArchived() {
     this.navCtrl.navigateRoot('/archived-projects');
   }
+
+  async archive(p) {
+    const alert = await this.alertCtrl.create({
+      header: "Archive Project ?",
+      message: 'You can find it in archived projects.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Archive',
+          handler: data => {
+            this.projectService.archiveProject(p.id).then(() => {
+              this.navCtrl.navigateRoot('/archived-projects');
+            })
+          }
+        }
+      ]
+    });
+    return await alert.present();
+
+  }
+
 }

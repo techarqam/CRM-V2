@@ -21,19 +21,34 @@
       </ion-col>
 
       <ion-col size="12" size-md="3">
-        <ion-button expand="block" fill="clear" *ngIf="!user.active" (click)="activate()">
-          <ion-icon name="checkmark" class="ion-margin-end"></ion-icon>
-          Activate User
-        </ion-button>
-        <ion-button expand="block" fill="clear" *ngIf="user.active" (click)="deactivate()">
-          <ion-icon name="close" class="ion-margin-end"></ion-icon>
-          Deactivate User
+
+
+        <!-- <ion-button fill="clear" color="primary" *ngIf="u.active" (click)="chat(p);$event.stopPropagation()">
+          <ion-icon name="chatbubbles"></ion-icon>
+        </ion-button> -->
+
+        <ion-button expand="block" fill="clear" (click)="chat(p)">
+          <ion-icon name="chatbubbles" class="ion-margin-end"></ion-icon>
+          Open in chat
         </ion-button>
 
-        <!-- <ion-button expand="block" fill="clear" color="danger" (click)="deleteUserConfirm()">
+
+        <div *ngIf="cUser.isAdmin">
+          <ion-button expand="block" fill="clear" *ngIf="!user.active" (click)="activate()">
+            <ion-icon name="checkmark" class="ion-margin-end"></ion-icon>
+            Activate User
+          </ion-button>
+          <ion-button expand="block" fill="clear" color="danger" *ngIf="user.active" (click)="deactivate()">
+            <ion-icon name="close" class="ion-margin-end"></ion-icon>
+            Deactivate User
+          </ion-button>
+
+          <!-- <ion-button expand="block" fill="clear" color="danger" (click)="deleteUserConfirm()">
           <ion-icon class="ion-margin-end" name="trash"></ion-icon>
           Delete User
         </ion-button> -->
+
+        </div>
       </ion-col>
 
     </ion-row>

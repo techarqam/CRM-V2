@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../Services/Projects/project.service';
 import * as moment from 'moment';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
@@ -13,9 +13,11 @@ export class ArchivedProjectsComponent implements OnInit {
 
   showLoader: boolean = false;
   projects: Array<any> = [];
+  isGrid: boolean = true;
   constructor(
     public projectService: ProjectService,
     public navCtrl: NavController,
+    public alertCtrl: AlertController,
     public authService: AuthService,
   ) {
     this.getProjects();
@@ -41,6 +43,28 @@ export class ArchivedProjectsComponent implements OnInit {
   }
   gtDetails(p) {
     this.navCtrl.navigateRoot(`/project-details/${p.id}`);
+  }
+  async unarchive(p) {
+    const alert = await this.alertCtrl.create({
+      header: "Unarchive Project ?",
+      message: 'It will be removed from Archived Projects.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Unarchive',
+          handler: data => {
+            this.projectService.unArchiveProject(p.id).then(() => {
+              this.navCtrl.navigateRoot('/projects');
+            })
+          }
+        }
+      ]
+    });
+    return await alert.present();
   }
 
 }

@@ -5,6 +5,7 @@ import { ClientsService } from '../../../Services/Clients/clients.service';
 import { NavController } from '@ionic/angular';
 import * as moment from 'moment';
 import * as firebase from 'firebase';
+import { AuthService } from 'src/app/Services/Auth/auth.service';
 
 @Component({
   selector: 'app-add-client',
@@ -17,6 +18,7 @@ export class AddClientComponent implements OnInit {
   constructor(
     public modelService: ModelsService,
     public commonService: CommonService,
+    public authService: AuthService,
     public clientService: ClientsService,
     public navCtrl: NavController,
   ) {
@@ -24,21 +26,24 @@ export class AddClientComponent implements OnInit {
 
   ngOnInit() { }
   addClient() {
-    let data = this.modelService.client.value;
-    if (this.modelService.client.valid) {
-      this.showLoader = true;
-      this.clientService.addClient(data).then(() => {
-        this.modelService.client.reset();
-        this.modelService.project.patchValue({
-          user: firebase.auth().currentUser.uid,
-          timestamp: moment().format()
-        });
-        this.navCtrl.navigateRoot('/clients');
-        this.showLoader = false;
-        this.commonService.presentToast("Client added");
-      })
-    } else {
-      this.commonService.presentToast("Client not valid")
-    }
+    this.authService.getCompany().then(comp => {
+      this.modelService.client.patchValue({
+        company: comp,
+        user: firebase.auth().currentUser.uid,
+        timestamp: moment().format()
+      });
+      let data = this.modelService.client.value;
+      if (this.modelService.client.valid) {
+        this.showLoader = true;
+        this.clientService.addClient(data).then(() => {
+          this.modelService.client.reset();
+          this.navCtrl.navigateRoot('/clients');
+          this.showLoader = false;
+          this.commonService.presentToast("Client added");
+        })
+      } else {
+        this.commonService.presentToast("Client not valid")
+      }
+    })
   }
 }

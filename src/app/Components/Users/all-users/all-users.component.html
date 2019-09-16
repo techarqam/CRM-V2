@@ -31,10 +31,9 @@
 
         <app-loader *ngIf="showLoader"></app-loader>
         <p class="nodata" [hidden]="showLoader" *ngIf="!users.length">No Users</p>
-
         <ion-row *ngIf="isGrid">
           <!-- Add project -->
-          <ion-col size="12" size-md="4" size-xs="6" routerLink="/add-user">
+          <ion-col size="12" size-md="4"  routerLink="/add-user">
             <ion-card class="add-card">
               <ion-button fill="clear" class="addBtn" size="large">
                 <ion-icon name="add-circle-outline"></ion-icon>
@@ -48,7 +47,7 @@
             </ion-card>
           </ion-col>
           <!-- Users List -->
-          <ion-col size="12" size-md="4" size-xs="6" *ngFor="let u of users" (click)="gtUserDetails(u)"
+          <ion-col size="12" size-md="4"  *ngFor="let u of users" (click)="gtUserDetails(u)"
             [hidden]="showLoader">
             <ion-card>
               <ion-card-content>
@@ -60,7 +59,7 @@
             </ion-card>
           </ion-col>
           <!-- No Users -->
-          <ion-col size="12" size-md="4" size-xs="6" [hidden]="showLoader" *ngIf="!users.length">
+          <ion-col size="12" size-md="4"  [hidden]="showLoader" *ngIf="!users.length">
             <ion-card>
               <ion-card-content>
                 <div class="projDetailDiv">
@@ -70,7 +69,6 @@
             </ion-card>
           </ion-col>
         </ion-row>
-
         <ion-row *ngIf="!isGrid">
           <ion-col size="12">
             <ion-list>
@@ -81,22 +79,33 @@
                 </ion-button>
               </ion-item>
               <ion-item *ngFor="let u of users" (click)="gtDetails(p)" [hidden]="showLoader">
-                <p class="projHeader">{{u.name}}</p>
+                <p slot="start" class="projHeader">{{u.name}}</p>
+                <ion-buttons slot="end">
+
+                  <ion-button fill="clear" color="primary" *ngIf="u.active" (click)="chat(p);$event.stopPropagation()">
+                    <ion-icon name="chatbubbles"></ion-icon>
+                  </ion-button>
+
+
+                  <div *ngIf="cUser.isAdmin">
+                    <ion-button expand="block" fill="clear" color="primary" *ngIf="!u.active"
+                      (click)="activate(u);$event.stopPropagation()">
+                      <ion-icon name="checkmark" class="ion-margin-end"></ion-icon>
+                    </ion-button>
+                    <ion-button expand="block" fill="clear" color="danger" *ngIf="u.active"
+                      (click)="deactivate(u);$event.stopPropagation()">
+                      <ion-icon name="close" class="ion-margin-end"></ion-icon>
+                    </ion-button>
+                  </div>
+
+
+
+                </ion-buttons>
               </ion-item>
             </ion-list>
           </ion-col>
         </ion-row>
-
       </ion-col>
-
-      <!-- <ion-col size="12" size-md="3" class="rightCol">
-        <ion-button fill="clear" routerLink="/add-user" expand="full">
-          <ion-icon name="add" size="small" class="ion-margin-end"></ion-icon>
-          Add Users
-        </ion-button>
-
-      </ion-col> -->
-
     </ion-row>
   </ion-grid>
 

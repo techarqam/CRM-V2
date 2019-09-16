@@ -1,10 +1,58 @@
-<ion-header>
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/clients"></ion-back-button>
-        </ion-buttons>
-        <ion-title>Edit Client</ion-title>
-    </ion-toolbar>
-</ion-header>
+<app-main-header></app-main-header>
+
+
+
+
+
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-md="4" offset-md="4">
+                <ion-card>
+
+                    <ion-card-header>
+                        <ion-title class="card-header">Edit Client</ion-title>
+                    </ion-card-header>
+
+                    <ion-row>
+                        <ion-col size="12" size-md="10" offset-md="1">
+                            <ion-card-content>
+                                <app-loader *ngIf="showLoader"></app-loader>
+                                <form [formGroup]="this.modelService.client" [hidden]="showLoader">
+
+                                    <ion-item>
+                                        <ion-label position="floating">Client Name</ion-label>
+                                        <ion-input type="text" formControlName="name"></ion-input>
+                                    </ion-item>
+
+                                    <ion-item>
+                                        <ion-label position="floating">Phone</ion-label>
+                                        <ion-input type="text" formControlName="phone"></ion-input>
+                                    </ion-item>
+
+                                    <ion-item>
+                                        <ion-label position="floating">Email</ion-label>
+                                        <ion-input type="text" formControlName="mail"></ion-input>
+                                    </ion-item>
+
+
+                                </form>
+                            </ion-card-content>
+                        </ion-col>
+                    </ion-row>
+                    <ion-item lines="none" class="ion-margin-top">
+                        <div slot="end">
+                            <ion-button (click)="cancel()" color="light">
+                                Cancel
+                            </ion-button>
+                            <ion-button (click)="updateClient()">
+                                Update Client
+                            </ion-button>
+                        </div>
+                    </ion-item>
+
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
