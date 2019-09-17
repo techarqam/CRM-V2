@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -7,8 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  selUserId: string = "";
 
-  ngOnInit() {}
+  constructor(
+    private router: ActivatedRoute,
+  ) {
+    this.router.params.subscribe(params => {
+      if (params['id'] != undefined) {
+        this.selUserId = params['id'];
+      }
+      console.log(this.selUserId);
+    });
+  }
+
+  ngOnInit() { }
 
 }

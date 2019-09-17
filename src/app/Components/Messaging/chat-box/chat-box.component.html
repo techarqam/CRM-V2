@@ -1,3 +1,54 @@
-<p>
-  chat-box works!
-</p>
+<ion-item class="userNameItem">
+  <p class="userName"> {{activatedUser.name}}</p>
+</ion-item>
+<div class="msgContainer">
+
+  <ion-item *ngFor="let m of messages " lines="none">
+    <div [class.talk-bubble-right]="m.type == 'sent'" [slot]="m.slotPlace"
+      [class.talk-bubble-left]="m.type == 'recieved'">
+      <p>{{m.message}}</p>
+      <p class="time">{{m.timestampDisplay}}</p>
+    </div>
+  </ion-item>
+
+
+
+</div>
+
+
+<ion-item>
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col size="10">
+        <form [formGroup]="this.modelService.message">
+          <ion-input type="text" autofocus="true" (keyup.enter)="sendMessage()" placeholder="Say something...."
+            formControlName="message">
+          </ion-input>
+        </form>
+      </ion-col>
+      <ion-col size="1">
+        <ion-button expand="full" (click)="sendMessage()">Send</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10">
+        <form [formGroup]="this.modelService.message">
+          <ion-item lines="none">
+            <ion-input type="text" placeholder="Your Message..." (keyup.enter)="sendMessage()"
+              formControlName="message">
+            </ion-input>
+          </ion-item>
+        </form>
+      </ion-col>
+      <ion-col size="2">
+        <ion-fab-button (click)="sendMessage()">
+          <ion-icon name="send" shape="round"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-item>

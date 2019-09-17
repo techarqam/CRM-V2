@@ -1,8 +1,7 @@
 <ion-searchbar [(ngModel)]="searchBar" (ionChange)="getItems(searchBar)" placeholder="Search" type="text">
 </ion-searchbar>
 
-
-<ion-card *ngFor="let u of users">
+<ion-card *ngFor="let u of users" [class.selCard]="u.id === activatedUser.id" (click)="activateUser(u)">
   <ion-grid>
     <ion-row>
       <ion-col size="3">
@@ -11,25 +10,13 @@
         </ion-avatar>
       </ion-col>
       <ion-col size="8">
-        <p class="name">{{u.name}}</p>
+        <p class="name" [class.selName]="u.id === activatedUser.id">{{u.name}}</p>
         <p>Last typed message</p>
+      </ion-col>
+      <ion-col size="1">
+        <ion-icon color="danger" name="radio-button-on"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-card>
 
-<ion-card *ngFor="let u of users" class="selCard">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="3">
-        <ion-avatar>
-          <img class="avat" src="https://www.travelcontinuously.com/wp-content/uploads/2018/04/empty-avatar.png">
-        </ion-avatar>
-      </ion-col>
-      <ion-col size="8">
-        <p class="selName">{{u.name}}</p>
-        <p>Last typed message</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-card>
